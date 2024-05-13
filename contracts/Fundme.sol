@@ -27,6 +27,17 @@ contract FundMe{
             addressToAmountinUSD[funder] = 0;
         }
         funders = new address[](0);
+
+        //transfer
+        // payable(msg.sender).transfer(address(this).balance);
+        
+        // send
+        // bool sendSuccess = payable(msg.sender).send(address(this).balance);
+        // require(sendSuccess,"Send failed!");
+
+        //call
+        (bool send, ) = payable(msg.sender).call{value: address(this).balance}("");
+        require(send, "Call Failed!");
     }
 
 }
